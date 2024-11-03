@@ -1,0 +1,35 @@
+[package]
+name = "hackoween-firmware"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+ch32-hal = { git = "https://github.com/ch32-rs/ch32-hal.git", features = [
+    "ch32v003f4u6",
+    "embassy",
+    "time-driver-tim2",
+    "rt",
+] }
+embassy-executor = { version = "0.6.0", features = [
+    "integrated-timers",
+    "arch-riscv32",
+    "executor-thread",
+    "task-arena-size-128", # or better use nightly, but fails on recent Rust versions
+] }
+embassy-time = { version = "0.3.0" }
+qingke-rt = { version = "0.4.0", features = ["highcode"] }
+qingke = "0.4.0"
+
+
+panic-halt = "0.2.0"
+embedded-hal = "1.0.0"
+
+smart-leds = "0.4.0"
+ws2812-delay = { version = "0.1.0", git = "https://github.com/rappet/ws2812-delay-rs.git", features = ["slow"] }
+
+[profile.release]
+strip = false   # symbols are not flashed to the microcontroller, so don't strip them.
+lto = true
+opt-level = "s" # Optimize for size.
+codegen-units = 1
+panic = "abort"
