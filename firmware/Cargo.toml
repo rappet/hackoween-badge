@@ -9,6 +9,7 @@ ch32-hal = { git = "https://github.com/ch32-rs/ch32-hal.git", features = [
     "embassy",
     "time-driver-tim2",
     "rt",
+    "memory-x",
 ] }
 embassy-executor = { version = "0.6.0", features = [
     "integrated-timers",
